@@ -1,0 +1,606 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4395744A2C357EF5005258D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439574492C357EF5005258D9 /* AppDelegate.swift */; };
+		4395744C2C357EF5005258D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4395744B2C357EF5005258D9 /* SceneDelegate.swift */; };
+		4395744E2C357EF5005258D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4395744D2C357EF5005258D9 /* ViewController.swift */; };
+		439574512C357EF5005258D9 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 439574502C357EF5005258D9 /* Base */; };
+		439574532C357EF8005258D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 439574522C357EF8005258D9 /* Assets.xcassets */; };
+		439574562C357EF8005258D9 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 439574552C357EF8005258D9 /* Base */; };
+		439574612C357EF8005258D9 /* polomapsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439574602C357EF8005258D9 /* polomapsTests.swift */; };
+		4395746B2C357EF9005258D9 /* polomapsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4395746A2C357EF9005258D9 /* polomapsUITests.swift */; };
+		4395746D2C357EF9005258D9 /* polomapsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4395746C2C357EF9005258D9 /* polomapsUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4395745D2C357EF8005258D9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4395743E2C357EF5005258D9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 439574452C357EF5005258D9;
+			remoteInfo = polomaps;
+		};
+		439574672C357EF9005258D9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4395743E2C357EF5005258D9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 439574452C357EF5005258D9;
+			remoteInfo = polomaps;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		439574462C357EF5005258D9 /* polomaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = polomaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		439574492C357EF5005258D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4395744B2C357EF5005258D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		4395744D2C357EF5005258D9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		439574502C357EF5005258D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		439574522C357EF8005258D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		439574552C357EF8005258D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		439574572C357EF8005258D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4395745C2C357EF8005258D9 /* polomapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = polomapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		439574602C357EF8005258D9 /* polomapsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = polomapsTests.swift; sourceTree = "<group>"; };
+		439574662C357EF9005258D9 /* polomapsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = polomapsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4395746A2C357EF9005258D9 /* polomapsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = polomapsUITests.swift; sourceTree = "<group>"; };
+		4395746C2C357EF9005258D9 /* polomapsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = polomapsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		439574432C357EF5005258D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		439574592C357EF8005258D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		439574632C357EF9005258D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4395743D2C357EF5005258D9 = {
+			isa = PBXGroup;
+			children = (
+				439574482C357EF5005258D9 /* polomaps */,
+				4395745F2C357EF8005258D9 /* polomapsTests */,
+				439574692C357EF9005258D9 /* polomapsUITests */,
+				439574472C357EF5005258D9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		439574472C357EF5005258D9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				439574462C357EF5005258D9 /* polomaps.app */,
+				4395745C2C357EF8005258D9 /* polomapsTests.xctest */,
+				439574662C357EF9005258D9 /* polomapsUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		439574482C357EF5005258D9 /* polomaps */ = {
+			isa = PBXGroup;
+			children = (
+				439574492C357EF5005258D9 /* AppDelegate.swift */,
+				4395744B2C357EF5005258D9 /* SceneDelegate.swift */,
+				4395744D2C357EF5005258D9 /* ViewController.swift */,
+				4395744F2C357EF5005258D9 /* Main.storyboard */,
+				439574522C357EF8005258D9 /* Assets.xcassets */,
+				439574542C357EF8005258D9 /* LaunchScreen.storyboard */,
+				439574572C357EF8005258D9 /* Info.plist */,
+			);
+			path = polomaps;
+			sourceTree = "<group>";
+		};
+		4395745F2C357EF8005258D9 /* polomapsTests */ = {
+			isa = PBXGroup;
+			children = (
+				439574602C357EF8005258D9 /* polomapsTests.swift */,
+			);
+			path = polomapsTests;
+			sourceTree = "<group>";
+		};
+		439574692C357EF9005258D9 /* polomapsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4395746A2C357EF9005258D9 /* polomapsUITests.swift */,
+				4395746C2C357EF9005258D9 /* polomapsUITestsLaunchTests.swift */,
+			);
+			path = polomapsUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		439574452C357EF5005258D9 /* polomaps */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 439574702C357EF9005258D9 /* Build configuration list for PBXNativeTarget "polomaps" */;
+			buildPhases = (
+				439574422C357EF5005258D9 /* Sources */,
+				439574432C357EF5005258D9 /* Frameworks */,
+				439574442C357EF5005258D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = polomaps;
+			productName = polomaps;
+			productReference = 439574462C357EF5005258D9 /* polomaps.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4395745B2C357EF8005258D9 /* polomapsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 439574732C357EF9005258D9 /* Build configuration list for PBXNativeTarget "polomapsTests" */;
+			buildPhases = (
+				439574582C357EF8005258D9 /* Sources */,
+				439574592C357EF8005258D9 /* Frameworks */,
+				4395745A2C357EF8005258D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4395745E2C357EF8005258D9 /* PBXTargetDependency */,
+			);
+			name = polomapsTests;
+			productName = polomapsTests;
+			productReference = 4395745C2C357EF8005258D9 /* polomapsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		439574652C357EF9005258D9 /* polomapsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 439574762C357EF9005258D9 /* Build configuration list for PBXNativeTarget "polomapsUITests" */;
+			buildPhases = (
+				439574622C357EF9005258D9 /* Sources */,
+				439574632C357EF9005258D9 /* Frameworks */,
+				439574642C357EF9005258D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				439574682C357EF9005258D9 /* PBXTargetDependency */,
+			);
+			name = polomapsUITests;
+			productName = polomapsUITests;
+			productReference = 439574662C357EF9005258D9 /* polomapsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4395743E2C357EF5005258D9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					439574452C357EF5005258D9 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					4395745B2C357EF8005258D9 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 439574452C357EF5005258D9;
+					};
+					439574652C357EF9005258D9 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 439574452C357EF5005258D9;
+					};
+				};
+			};
+			buildConfigurationList = 439574412C357EF5005258D9 /* Build configuration list for PBXProject "polomaps" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4395743D2C357EF5005258D9;
+			productRefGroup = 439574472C357EF5005258D9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				439574452C357EF5005258D9 /* polomaps */,
+				4395745B2C357EF8005258D9 /* polomapsTests */,
+				439574652C357EF9005258D9 /* polomapsUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		439574442C357EF5005258D9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				439574532C357EF8005258D9 /* Assets.xcassets in Resources */,
+				439574562C357EF8005258D9 /* Base in Resources */,
+				439574512C357EF5005258D9 /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4395745A2C357EF8005258D9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		439574642C357EF9005258D9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		439574422C357EF5005258D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4395744E2C357EF5005258D9 /* ViewController.swift in Sources */,
+				4395744A2C357EF5005258D9 /* AppDelegate.swift in Sources */,
+				4395744C2C357EF5005258D9 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		439574582C357EF8005258D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				439574612C357EF8005258D9 /* polomapsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		439574622C357EF9005258D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4395746D2C357EF9005258D9 /* polomapsUITestsLaunchTests.swift in Sources */,
+				4395746B2C357EF9005258D9 /* polomapsUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4395745E2C357EF8005258D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 439574452C357EF5005258D9 /* polomaps */;
+			targetProxy = 4395745D2C357EF8005258D9 /* PBXContainerItemProxy */;
+		};
+		439574682C357EF9005258D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 439574452C357EF5005258D9 /* polomaps */;
+			targetProxy = 439574672C357EF9005258D9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4395744F2C357EF5005258D9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				439574502C357EF5005258D9 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		439574542C357EF8005258D9 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				439574552C357EF8005258D9 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4395746E2C357EF9005258D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4395746F2C357EF9005258D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		439574712C357EF9005258D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = polomaps/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tychografie.polomaps;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		439574722C357EF9005258D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = polomaps/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tychografie.polomaps;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		439574742C357EF9005258D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tychografie.polomapsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/polomaps.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/polomaps";
+			};
+			name = Debug;
+		};
+		439574752C357EF9005258D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tychografie.polomapsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/polomaps.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/polomaps";
+			};
+			name = Release;
+		};
+		439574772C357EF9005258D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tychografie.polomapsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = polomaps;
+			};
+			name = Debug;
+		};
+		439574782C357EF9005258D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tychografie.polomapsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = polomaps;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		439574412C357EF5005258D9 /* Build configuration list for PBXProject "polomaps" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4395746E2C357EF9005258D9 /* Debug */,
+				4395746F2C357EF9005258D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		439574702C357EF9005258D9 /* Build configuration list for PBXNativeTarget "polomaps" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				439574712C357EF9005258D9 /* Debug */,
+				439574722C357EF9005258D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		439574732C357EF9005258D9 /* Build configuration list for PBXNativeTarget "polomapsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				439574742C357EF9005258D9 /* Debug */,
+				439574752C357EF9005258D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		439574762C357EF9005258D9 /* Build configuration list for PBXNativeTarget "polomapsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				439574772C357EF9005258D9 /* Debug */,
+				439574782C357EF9005258D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4395743E2C357EF5005258D9 /* Project object */;
+}
