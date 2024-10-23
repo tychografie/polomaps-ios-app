@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Belanosima-Bold.ttf</string>
+		<string>Belanosima-SemiBold.ttf</string>
+		<string>Belanosima-Regular.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -15,11 +21,14 @@
 					<string>Default Configuration</string>
 					<key>UISceneDelegateClassName</key>
 					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
-					<key>UISceneStoryboardFile</key>
-					<string>Main</string>
 				</dict>
 			</array>
 		</dict>
 	</dict>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We need your location to find great local places near you</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need your location to find nearby places even when the app is in the background.</string>
+    
 </dict>
 </plist>
