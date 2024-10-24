@@ -42,10 +42,8 @@ class NetworkManager: ObservableObject {
             do {
                 let jsonResponse = try JSONDecoder().decode(SearchResponse.self, from: data)
                 // Log distances for debugging
-                jsonResponse.places?.forEach { place in
-                    if let distance = place.distance?.distance {
-                        logger.info("Place: \(place.name ?? "Unknown"), Distance: \(distance)km")
-                    }
+                if let distance = jsonResponse.places?.first?.distanceObject?.distance {
+                    logger.info("Place: \(jsonResponse.places?.first?.name ?? "Unknown"), Distance: \(distance)km")
                 }
                 return jsonResponse
             } catch {
@@ -164,7 +162,7 @@ func parsePlaces(from data: Data) -> [Place]? {
         
         // Log each place's distance
         for place in places {
-            logger.info("Parsed distance: \(place.distance?.description ?? "N/A") for place: \(place.name ?? "Unknown")")
+            logger.info("Parsed distance: \(place.distanceObject?.description ?? "N/A") for place: \(place.name ?? "Unknown")")
         }
         
         return places
@@ -177,7 +175,7 @@ func parsePlaces(from data: Data) -> [Place]? {
 // Assuming you have a function or method where you process each place
 func processPlace(place: Place) {
     // Log the distance of the place
-    if let distance = place.distance {
+    if let distance = place.distanceObject {
         logger.info("Distance for place \(place.name ?? "Unknown"): \(distance.description)")
     } else {
         logger.info("Distance not available for place \(place.name ?? "Unknown")")
@@ -186,3 +184,4 @@ func processPlace(place: Place) {
     // Existing code to process the place
     // ...
 }
+

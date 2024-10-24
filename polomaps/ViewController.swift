@@ -681,6 +681,7 @@ struct PlaceView: View {
     let place: Place
     @Environment(\.colorScheme) private var colorScheme
     
+    
     var body: some View {
         HStack(spacing: 12) {
             AsyncImageView(place: place)
@@ -704,10 +705,10 @@ struct PlaceView: View {
                         }
                     }
                     
-                    if let distance = place.distance?.distance {
+                    if let distance = place.distanceObject?.description {
                         Text("•")
                             .foregroundColor(.secondary)
-                        Text(formatDistance(distance))
+                        Text(distance)
                             .font(.custom("Belanosima-Regular", size: 16))
                             .foregroundColor(.secondary)
                     }
@@ -761,6 +762,11 @@ struct MainScreenView_Previews: PreviewProvider {
         MainScreenView()
     }
 }
+
+
+
+
+
 
 
 

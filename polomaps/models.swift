@@ -12,11 +12,10 @@ struct Place: Identifiable, Codable {
     }
     
     struct Distance: Codable {
-        let distance: Double?
+        let distance: Double
         
         var description: String {
-            guard let dist = distance else { return "N/A" }
-            return formatDistance(dist)
+            return formatDistance(distance)
         }
         
         private func formatDistance(_ dist: Double) -> String {
@@ -43,40 +42,43 @@ struct Place: Identifiable, Codable {
     }
 
     let id: String  // This will be extracted from googleMapsUri
-        let displayName: DisplayName?
-        let googleMapsUri: String?
-        let rating: Double?
-        let userRatingCount: Int?
-        let location: Location?
-        let distance: Distance?
-        let name: String?
-        let photos: [Photo]?
+    let displayName: DisplayName?
+    let googleMapsUri: String?
+    let rating: Double?
+    let userRatingCount: Int?
+    let location: Location?
+    private let distance: Double?
+    var distanceObject: Distance? {
+        distance.flatMap(Distance.init(distance:))
+    }
+    let name: String?
+    let photos: [Photo]?
+    
+    private enum CodingKeys: String, CodingKey {
+        case displayName, googleMapsUri, rating, userRatingCount, location, distance, name, photos
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        private enum CodingKeys: String, CodingKey {
-            case displayName, googleMapsUri, rating, userRatingCount, location, distance, name, photos
-        }
+        self.displayName = try? container.decode(DisplayName.self, forKey: .displayName)
+        self.googleMapsUri = try? container.decode(String.self, forKey: .googleMapsUri)
+        self.rating = try? container.decode(Double.self, forKey: .rating)
+        self.userRatingCount = try? container.decode(Int.self, forKey: .userRatingCount)
+        self.location = try? container.decode(Location.self, forKey: .location)
+        self.distance = try? container.decode(Double.self, forKey: .distance)
+        self.name = try? container.decode(String.self, forKey: .name)
+        self.photos = try? container.decode([Photo].self, forKey: .photos)
         
-        init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            self.displayName = try? container.decode(DisplayName.self, forKey: .displayName)
-            self.googleMapsUri = try? container.decode(String.self, forKey: .googleMapsUri)
-            self.rating = try? container.decode(Double.self, forKey: .rating)
-            self.userRatingCount = try? container.decode(Int.self, forKey: .userRatingCount)
-            self.location = try? container.decode(Location.self, forKey: .location)
-            self.distance = try? container.decode(Distance.self, forKey: .distance)
-            self.name = try? container.decode(String.self, forKey: .name)
-            self.photos = try? container.decode([Photo].self, forKey: .photos)
-            
-            // Extract the ID from googleMapsUri
-            // Format: https://maps.google.com/?cid=12345
-            if let uri = self.googleMapsUri,
-               let cidIndex = uri.range(of: "cid=")?.upperBound {
-                self.id = String(uri[cidIndex...])
-            } else {
-                self.id = UUID().uuidString
-            }
+        // Extract the ID from googleMapsUri
+        // Format: https://maps.google.com/?cid=12345
+        if let uri = self.googleMapsUri,
+           let cidIndex = uri.range(of: "cid=")?.upperBound {
+            self.id = String(uri[cidIndex...])
+        } else {
+            self.id = UUID().uuidString
         }
+    }
 }
 
 struct AIResponse: Codable {
