@@ -1,8 +1,10 @@
 import SwiftUI
 import CoreLocation
 import Network
+import MapKit
 
 struct MainScreenView: View {
+    @State private var selectedTab = 0
     @Environment(\.colorScheme) private var colorScheme
     @State private var query: String = ""
     @State private var locationEnabled: Bool = false
@@ -14,6 +16,11 @@ struct MainScreenView: View {
     @StateObject private var locationManager = LocationManager()
     @StateObject private var networkManager = NetworkManager()
     @StateObject private var connectivityManager = NetworkConnectivityManager()
+    @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 52.3676, longitude: 4.9041),
+        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+    )
+    @State private var showingMap: Bool = false
     
     @State private var buttonText: String = "Search"
     @State private var errorMessage: String = ""
@@ -44,12 +51,13 @@ struct MainScreenView: View {
         colorScheme == .dark ? Color.black : Color(hex: "#FBEED2")
     }
     
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .bottom) {
                 backgroundColor.ignoresSafeArea()
                 
-                // Main content
+                // Replace the TabView section in the body with this updasted version
                 VStack(spacing: 0) {
                     if !connectivityManager.isConnected {
                         offlineView
@@ -58,27 +66,67 @@ struct MainScreenView: View {
                     } else if results.isEmpty {
                         emptyStateView
                     } else {
-                        ScrollView {
-                            VStack(spacing: 10) {
-                                resultsView
+                        ZStack(alignment: .top) {
+                            // Content
+                            if selectedTab == 0 {
+                                ScrollView {
+                                    VStack(spacing: 10) {
+                                        // Add padding at top to account for fixed segment control
+                                        Color.clear.frame(height: 60)
+                                        resultsView
+                                    }
+                                    .padding(.bottom, locationEnabled ? 120 : 100)
+                                }
+                                .transition(.opacity)
+                            } else {
+                                MapViewWrapper(places: results, region: $region)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    .edgesIgnoringSafeArea(.all)
+                                    .transition(.opacity)
                             }
-                            .padding(.bottom, locationEnabled ? 120 : 100)
+                            
+                            // Fixed segment control at top
+                            VStack {
+                                HStack(spacing: 20) {
+                                    SegmentedButton(
+                                        icon: "list.bullet",
+                                        title: "List",
+                                        isSelected: selectedTab == 0,
+                                        action: { selectedTab = 0 }
+                                    )
+                                    
+                                    SegmentedButton(
+                                        icon: "map",
+                                        title: "Map",
+                                        isSelected: selectedTab == 1,
+                                        action: { selectedTab = 1 }
+                                    )
+                                }
+                                .background(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(colorScheme == .dark ? Color(UIColor.systemGray6) : .white)
+                                        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                                )
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 10)
+                            }
                         }
+                        .animation(.easeInOut, value: selectedTab)
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .blur(radius: keyboardVisible ? 3 : 0)
-                
+
                 // Blurry gradient view fixed to the bottom
                 gradientView
                     .frame(maxWidth: .infinity)
-                    .offset(y: 50) // Adjust this offset to position it correctly above the bottom
-                    .padding(.bottom, 0) // Ensure it is at the bottom
+                    .offset(y: 50)
+                    .padding(.bottom, 0)
                 
                 // Hero section with shadow
                 VStack(spacing: 0) {
                     heroSection
-                        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 4) // Add shadow here
+                        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 4)
                 }
                 .frame(height: locationEnabled ? 120 : 100)
                 .offset(y: keyboardVisible ? -keyboardHeight + geometry.safeAreaInsets.bottom - (locationEnabled ? 20 : 0) : 0)
@@ -87,11 +135,26 @@ struct MainScreenView: View {
         .ignoresSafeArea(.keyboard)
         .onAppear {
             setupApp()
+            print("MainScreenView appeared")
         }
-        .sheet(isPresented: $showWelcomeSheet, content: {
+        .onChange(of: results) { _, newResults in
+            print("Results updated: \(newResults.count) places")
+            if let firstPlace = newResults.first,
+               let lat = firstPlace.location?.latitude,
+               let lon = firstPlace.location?.longitude {
+                print("Updating region to center: \(lat), \(lon)")
+                withAnimation {
+                    region = MKCoordinateRegion(
+                        center: CLLocationCoordinate2D(latitude: lat, longitude: lon),
+                        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                    )
+                }
+            }
+        }
+        .sheet(isPresented: $showWelcomeSheet) {
             WelcomeSheetView(isPresented: $showWelcomeSheet)
                 .presentationDetents([.height(UIScreen.main.bounds.height * 0.65)])
-        })
+        }
         .alert("Location Access Required", isPresented: $showLocationPermissionAlert) {
             Button("Open Settings", role: .none) {
                 if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -125,7 +188,8 @@ struct MainScreenView: View {
         .accessibilityElement(children: .contain)
         .accessibilityLabel("Places Search Screen")
     }
-    
+
+
     var offlineView: some View {
         VStack(spacing: 20) {
             Image(systemName: "wifi.slash")
@@ -400,18 +464,27 @@ struct MainScreenView: View {
     }
     
     func handleSearchResponse(_ response: SearchResponse) {
-        if let places = response.places, !places.isEmpty {
-            logger.info("Received \(places.count) places from API")
-            self.results = places.filter { $0.rating ?? 0 >= 3.0 }
-            self.hasMoreResults = places.count >= 20
-            self.buttonText = "Search"
-        } else {
-            logger.info("No places found in API response")
-            self.showError("No matching places found. Try different keywords.")
+            if let places = response.places, !places.isEmpty {
+                logger.info("Received \(places.count) places from API")
+                print("First place details:")
+                if let firstPlace = places.first {
+                    print("  Name: \(firstPlace.displayName?.text ?? firstPlace.name ?? "Unknown")")
+                    print("  Location: \(firstPlace.location?.latitude ?? 0), \(firstPlace.location?.longitude ?? 0)")
+                }
+                
+                self.results = places.filter { $0.rating ?? 0 >= 3.0 }
+                self.hasMoreResults = places.count >= 20
+                self.buttonText = "Search"
+                
+                // Debug the filtered results
+                print("Filtered to \(self.results.count) places with rating >= 3.0")
+            } else {
+                logger.info("No places found in API response")
+                self.showError("No matching places found. Try different keywords.")
+            }
+            self.isLoading = false
+            self.animateResults()
         }
-        self.isLoading = false
-        self.animateResults()
-    }
     
     func handleError(_ error: Error) {
         let errorMessage: String
@@ -506,26 +579,30 @@ struct MainScreenView: View {
     }
 }
 
-class NetworkConnectivityManager: ObservableObject {
-    @Published var isConnected = true
-    private let monitor = NWPathMonitor()
+
+struct SegmentedButton: View {
+    let icon: String
+    let title: String
+    let isSelected: Bool
+    let action: () -> Void
+    @Environment(\.colorScheme) private var colorScheme
     
-    func startMonitoring() {
-        monitor.pathUpdateHandler = { [weak self] path in
-            DispatchQueue.main.async {
-                self?.isConnected = path.status == .satisfied
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 6) {
+                Image(systemName: icon)
+                Text(title)
+                    .font(.custom("Belanosima-Regular", size: 18))
             }
+            .foregroundColor(isSelected ? .white : .primary)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 16)
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(isSelected ? Color.blue : Color.clear)
+            )
         }
-        let queue = DispatchQueue(label: "NetworkMonitor")
-        monitor.start(queue: queue)
-    }
-    
-    func checkConnectivity() {
-        isConnected = monitor.currentPath.status == .satisfied
-    }
-    
-    deinit {
-        monitor.cancel()
+        .buttonStyle(.plain)
     }
 }
 
@@ -599,6 +676,218 @@ struct WelcomeSheetView: View {
     }
 }
 
+
+struct MapViewWrapper: View {
+    let places: [Place]
+    @Binding var region: MKCoordinateRegion
+    @State private var selectedPlace: Place?
+    @State private var placeImages: [String: UIImage] = [:]
+    @State private var isExpanded: Bool = false
+    private let logger = CustomLogger.shared
+    @Environment(\.colorScheme) private var colorScheme
+    
+    var body: some View {
+        GeometryReader { geometry in
+            Map(coordinateRegion: $region,
+                showsUserLocation: true,
+                annotationItems: places) { place in
+                    MapAnnotation(
+                        coordinate: CLLocationCoordinate2D(
+                            latitude: place.location?.latitude ?? 0,
+                            longitude: place.location?.longitude ?? 0
+                        )
+                    ) {
+                        VStack(spacing: 4) {
+                            ZStack {
+                                if let image = placeImages[place.id] {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(
+                                            width: selectedPlace?.id == place.id && isExpanded ? 66 : 44,
+                                            height: selectedPlace?.id == place.id && isExpanded ? 66 : 44
+                                        )
+                                        .clipShape(Circle())
+                                        .overlay(
+                                            Circle()
+                                                .stroke(Color.white, lineWidth: 3)
+                                        )
+                                        .shadow(radius: 3)
+                                        .animation(.spring(response: 0.3), value: selectedPlace?.id == place.id && isExpanded)
+                                } else {
+                                    Circle()
+                                        .fill(Color.blue)
+                                        .frame(
+                                            width: selectedPlace?.id == place.id && isExpanded ? 66 : 44,
+                                            height: selectedPlace?.id == place.id && isExpanded ? 66 : 44
+                                        )
+                                        .overlay(
+                                            Image(systemName: "photo")
+                                                .foregroundColor(.white)
+                                        )
+                                        .overlay(
+                                            Circle()
+                                                .stroke(Color.white, lineWidth: 3)
+                                        )
+                                        .shadow(radius: 3)
+                                        .animation(.spring(response: 0.3), value: selectedPlace?.id == place.id && isExpanded)
+                                        .onAppear {
+                                            loadImage(for: place)
+                                        }
+                                }
+                                
+                                // Rating badge
+                                if let rating = place.rating {
+                                    HStack(spacing: 1) {
+                                        Image(systemName: "star.fill")
+                                            .font(.system(size: 8))
+                                        Text(String(format: "%.1f", rating))
+                                            .font(.system(size: 10, weight: .bold))
+                                    }
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal, 4)
+                                    .padding(.vertical, 2)
+                                    .background(Color.black.opacity(0.7))
+                                    .cornerRadius(8)
+                                    .offset(x: 16, y: -16)
+                                }
+                            }
+                            .onTapGesture {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    if selectedPlace?.id == place.id {
+                                        isExpanded.toggle()
+                                    } else {
+                                        selectedPlace = place
+                                        isExpanded = true
+                                    }
+                                }
+                            }
+                            
+                            if selectedPlace?.id == place.id {
+                                VStack(spacing: 2) {
+                                    Text(place.displayName?.text ?? place.name ?? "Unknown")
+                                        .font(.custom("Belanosima-Regular", size: 14))
+                                        .foregroundColor(.primary)
+                                        .onTapGesture {
+                                            if let urlString = place.googleMapsUri,
+                                               let url = URL(string: urlString) {
+                                                UIApplication.shared.open(url)
+                                            }
+                                        }
+                                    if let distance = place.distanceObject?.description {
+                                        Text(distance)
+                                            .font(.custom("Belanosima-Regular", size: 12))
+                                            .foregroundColor(.secondary)
+                                    }
+                                }
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(colorScheme == .dark ? Color(hex: "#2C2C2E") : .white)
+                                        .shadow(radius: 3)
+                                )
+                                .transition(.opacity)
+                            }
+                        }
+                    }
+            }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onAppear {
+            logMapDetails()
+            updateMapRegion()
+        }
+        .onChange(of: places.count) { newCount in
+            logMapDetails()
+            updateMapRegion()
+        }
+    }
+    
+    private func loadImage(for place: Place) {
+        Task {
+            do {
+                if let image = try await NetworkManager.shared.loadImage(for: place) {
+                    await MainActor.run {
+                        placeImages[place.id] = image
+                    }
+                }
+            } catch {
+                logger.error("Error loading image for map pin: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func logMapDetails() {
+        print("MapView configuration:")
+        print("Number of places: \(places.count)")
+        print("Region center: \(region.center.latitude), \(region.center.longitude)")
+        print("Region span: \(region.span.latitudeDelta), \(region.span.longitudeDelta)")
+        
+        for (index, place) in places.enumerated() {
+            if let lat = place.location?.latitude,
+               let lon = place.location?.longitude {
+                print("Place \(index): \(place.displayName?.text ?? place.name ?? "Unknown") at (\(lat), \(lon))")
+            }
+        }
+    }
+    
+    private func updateMapRegion() {
+        guard !places.isEmpty else {
+            print("No places to update region")
+            return
+        }
+        
+        let coordinates = places.compactMap { place -> CLLocationCoordinate2D? in
+            guard let lat = place.location?.latitude,
+                  let lon = place.location?.longitude else { return nil }
+            return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        }
+        
+        guard !coordinates.isEmpty else {
+            print("No valid coordinates found")
+            return
+        }
+        
+        let minLat = coordinates.map(\.latitude).min() ?? 0
+        let maxLat = coordinates.map(\.latitude).max() ?? 0
+        let minLon = coordinates.map(\.longitude).min() ?? 0
+        let maxLon = coordinates.map(\.longitude).max() ?? 0
+        
+        let center = CLLocationCoordinate2D(
+            latitude: (minLat + maxLat) / 2,
+            longitude: (minLon + maxLon) / 2
+        )
+        
+        let span = MKCoordinateSpan(
+            latitudeDelta: max((maxLat - minLat) * 1.4, 0.02),
+            longitudeDelta: max((maxLon - minLon) * 1.4, 0.02)
+        )
+        
+        print("Updating region to center: \(center.latitude), \(center.longitude)")
+        print("With span: \(span.latitudeDelta), \(span.longitudeDelta)")
+        
+        DispatchQueue.main.async {
+            withAnimation {
+                region = MKCoordinateRegion(center: center, span: span)
+            }
+        }
+    }
+}
+
+extension Place {
+    func debugPrint() {
+        print("""
+        Place Debug Info:
+        - ID: \(id)
+        - Name: \(displayName?.text ?? name ?? "Unknown")
+        - Location: \(location?.latitude ?? 0), \(location?.longitude ?? 0)
+        - Rating: \(rating ?? 0)
+        - Has Maps URI: \(googleMapsUri != nil)
+        """)
+    }
+}
 struct TipView: View {
     let text: String
     
@@ -764,7 +1053,28 @@ struct MainScreenView_Previews: PreviewProvider {
 }
 
 
-
+class NetworkConnectivityManager: ObservableObject {
+    @Published var isConnected = true
+    private let monitor = NWPathMonitor()
+    
+    func startMonitoring() {
+        monitor.pathUpdateHandler = { [weak self] path in
+            DispatchQueue.main.async {
+                self?.isConnected = path.status == .satisfied
+            }
+        }
+        let queue = DispatchQueue(label: "NetworkMonitor")
+        monitor.start(queue: queue)
+    }
+    
+    func checkConnectivity() {
+        isConnected = monitor.currentPath.status == .satisfied
+    }
+    
+    deinit {
+        monitor.cancel()
+    }
+}
 
 
 
