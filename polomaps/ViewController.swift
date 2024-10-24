@@ -3,6 +3,7 @@ import CoreLocation
 import Network
 import MapKit
 
+
 struct MainScreenView: View {
     @State private var selectedTab = 0
     @Environment(\.colorScheme) private var colorScheme
@@ -57,7 +58,6 @@ struct MainScreenView: View {
             ZStack(alignment: .bottom) {
                 backgroundColor.ignoresSafeArea()
                 
-                // Replace the TabView section in the body with this updasted version
                 VStack(spacing: 0) {
                     if !connectivityManager.isConnected {
                         offlineView
@@ -87,7 +87,7 @@ struct MainScreenView: View {
                             
                             // Fixed segment control at top
                             VStack {
-                                HStack(spacing: 20) {
+                                HStack(spacing: 4) {
                                     SegmentedButton(
                                         icon: "list.bullet",
                                         title: "List",
@@ -117,11 +117,13 @@ struct MainScreenView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .blur(radius: keyboardVisible ? 3 : 0)
 
-                // Blurry gradient view fixed to the bottom
-                gradientView
-                    .frame(maxWidth: .infinity)
-                    .offset(y: 50)
-                    .padding(.bottom, 0)
+                // Only show gradient view in list tab
+                if selectedTab == 0 {
+                    gradientView
+                        .frame(maxWidth: .infinity)
+                        .offset(y: 50)
+                        .padding(.bottom, 0)
+                }
                 
                 // Hero section with shadow
                 VStack(spacing: 0) {
@@ -188,6 +190,7 @@ struct MainScreenView: View {
         .accessibilityElement(children: .contain)
         .accessibilityLabel("Places Search Screen")
     }
+
 
 
     var offlineView: some View {
@@ -571,11 +574,18 @@ struct MainScreenView: View {
     }
     
     var gradientView: some View {
-        LinearGradient(gradient: Gradient(colors: [Color(hex: "#FBEED2").opacity(0), Color(hex: "#FBEED2").opacity(1)]), startPoint: .top, endPoint: .bottom)
-            .blur(radius: 10) // Add blur effect
-            .cornerRadius(10) // Optional: add corner radius
-            .padding(.horizontal, 20) // Optional: add padding
-            .frame(height: 130) // Set a fixed height for the gradient
+        LinearGradient(
+            gradient: Gradient(colors: [
+                colorScheme == .dark ? Color.black.opacity(0) : Color(hex: "#FBEED2").opacity(0),
+                colorScheme == .dark ? Color.black.opacity(1) : Color(hex: "#FBEED2").opacity(1)
+            ]),
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        .blur(radius: 10)
+        .cornerRadius(10)
+        .padding(.horizontal, 20)
+        .frame(height: 130)
     }
 }
 
@@ -790,6 +800,7 @@ struct MapViewWrapper: View {
                                 .transition(.opacity)
                             }
                         }
+                        .zIndex(selectedPlace?.id == place.id ? 1 : 0)
                     }
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
